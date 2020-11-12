@@ -60,15 +60,20 @@ enum EventStringCode: String {
 struct EventDataPacket {
     let header: PacketHeader
     let eventStringCode: EventStringCode
-    let vehicleIdx: Int?         // uint8
-    let lapTime: Float?
+    let vehicleIdx: Int         // uint8
+    let lapTime: Float
     
-    init(header: PacketHeader, data: inout ByteBuffer) throws {
+    init?(header: PacketHeader, data: inout ByteBuffer) {
+        guard let vehicleIdx = data.readInt(as: UInt8.self),
+              let lapTime = data.readFloat()
+        else {
+            return nil
+        }
         self.header = header
         let eventString = data.readString(length: 4)
         self.eventStringCode = EventStringCode(value: eventString)
         
-        self.vehicleIdx = data.readInt(as: UInt8.self)
-        self.lapTime = data.readFloat()
+        self.vehicleIdx = vehicleIdx
+        self.lapTime = lapTime
     }
 }
