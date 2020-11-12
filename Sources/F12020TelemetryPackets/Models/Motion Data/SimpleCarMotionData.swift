@@ -15,14 +15,9 @@ struct SimpleCarMotionData: Codable {
     let index: Int
     
     init?(data: CarMotionData, index: Int) {
-        guard let x = data.worldPositionX, let y = data.worldPositionY, let z = data.worldPositionZ
-            else {
-                return nil
-        }
-        
-        self.worldPositionX = x
-        self.worldPositionY = y
-        self.worldPositionZ = z
+        self.worldPositionX = data.worldPositionX
+        self.worldPositionY = data.worldPositionY
+        self.worldPositionZ = data.worldPositionZ
         self.index = index
     }
 }

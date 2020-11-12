@@ -27,52 +27,68 @@ struct MotionDataPacket {
      wheelSpeed RL, RR, FL, FR
      wheelSlip RL, RR, FL, FR
      */
-    let suspensionPosition: [Float?]
-    let suspensionVelocity: [Float?]
-    let suspensionAcceleration: [Float?]
-    let wheelSpeed: [Float?]
-    let wheelSlip: [Float?]
+    let suspensionPosition: [Float]
+    let suspensionVelocity: [Float]
+    let suspensionAcceleration: [Float]
+    let wheelSpeed: [Float]
+    let wheelSlip: [Float]
     // velocities in local space
-    let localVelocityX: Float?
-    let localVelocityY: Float?
-    let localVelocityZ: Float?
+    let localVelocityX: Float
+    let localVelocityY: Float
+    let localVelocityZ: Float
     
-    let angularVelocityX: Float?
-    let angularVelocityY: Float?
-    let angularVelocityZ: Float?
+    let angularVelocityX: Float
+    let angularVelocityY: Float
+    let angularVelocityZ: Float
     
-    let angularAccelerationX: Float?
-    let angularAccelerationY: Float?
-    let angularAccelerationZ: Float?
+    let angularAccelerationX: Float
+    let angularAccelerationY: Float
+    let angularAccelerationZ: Float
     
     // current front wheel angle in raidians
-    var frontWheelsAngle: Float?
+    var frontWheelsAngle: Float
     
-    init(header: PacketHeader, data: inout ByteBuffer) throws {
+    init?(header: PacketHeader, data: inout ByteBuffer) {
         self.header = header
         
-        let motionData = try CarMotionData(data: &data)
-        carMotionData = [motionData]
+        guard let motionData = CarMotionData(data: &data),
+              let suspensionPosition = data.readMultipleFloat(count: 4),
+              let suspensionVelocity = data.readMultipleFloat(count: 4),
+              let suspensionAcceleration = data.readMultipleFloat(count: 4),
+              let wheelSpeed = data.readMultipleFloat(count: 4),
+              let wheelSlip = data.readMultipleFloat(count: 4),
+              let localVelocityX = data.readFloat(),
+              let localVelocityY = data.readFloat(),
+              let localVelocityZ = data.readFloat(),
+              let angularVelocityX = data.readFloat(),
+              let angularVelocityY = data.readFloat(),
+              let angularVelocityZ = data.readFloat(),
+              let angularAccelerationX = data.readFloat(),
+              let angularAccelerationY = data.readFloat(),
+              let angularAccelerationZ = data.readFloat(),
+              let frontWheelsAngle = data.readFloat()
+        else { return nil }
+        self.carMotionData = [motionData]
         
-        self.suspensionPosition = data.getTireInfo(data: &data)
-        self.suspensionVelocity = data.getTireInfo(data: &data)
-        self.suspensionAcceleration = data.getTireInfo(data: &data)
-        self.wheelSpeed = data.getTireInfo(data: &data)
-        self.wheelSlip = data.getTireInfo(data: &data)
+        self.suspensionPosition = suspensionPosition
+        self.suspensionVelocity = suspensionVelocity
+        self.suspensionAcceleration = suspensionAcceleration
+        self.wheelSpeed = wheelSpeed
+        self.wheelSlip = wheelSlip
         
-        self.localVelocityX = data.readFloat()
-        self.localVelocityY = data.readFloat()
-        self.localVelocityZ = data.readFloat()
+        self.localVelocityX = localVelocityX
+        self.localVelocityY = localVelocityY
+        self.localVelocityZ = localVelocityZ
         
-        self.angularVelocityX = data.readFloat()
-        self.angularVelocityY = data.readFloat()
-        self.angularVelocityZ = data.readFloat()
+        self.angularVelocityX = angularVelocityX
+        self.angularVelocityY = angularVelocityY
+        self.angularVelocityZ = angularVelocityZ
         
-        self.angularAccelerationX = data.readFloat()
-        self.angularAccelerationY = data.readFloat()
-        self.angularAccelerationZ = data.readFloat()
+        self.angularAccelerationX = angularAccelerationX
+        self.angularAccelerationY = angularAccelerationY
+        self.angularAccelerationZ = angularAccelerationZ
         
-        self.frontWheelsAngle = data.readFloat()
+        self.frontWheelsAngle = frontWheelsAngle
     }
 }
 

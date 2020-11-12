@@ -9,56 +9,75 @@ import Foundation
 import NIO
 
 struct CarMotionData: Codable {
-    let worldPositionX: Float?
-    let worldPositionY: Float?
-    let worldPositionZ: Float?
+    let worldPositionX: Float
+    let worldPositionY: Float
+    let worldPositionZ: Float
     
-    let worldVelocityX: Float?
-    let worldVelocityY: Float?
-    let worldVelocityZ: Float?
+    let worldVelocityX: Float
+    let worldVelocityY: Float
+    let worldVelocityZ: Float
     
-    let worldForwardDirX: Int?   // Int16
-    let worldForwardDirY: Int?   // Int16
-    let worldForwardDirZ: Int?   // Int16
+    let worldForwardDirX: Int   // Int16
+    let worldForwardDirY: Int   // Int16
+    let worldForwardDirZ: Int   // Int16
     
-    let worldRightDirX: Int?     // Int16
-    let worldRightDirY: Int?     // Int16
-    let worldRightDirZ: Int?     // Int16
+    let worldRightDirX: Int     // Int16
+    let worldRightDirY: Int     // Int16
+    let worldRightDirZ: Int     // Int16
     
-    let gForceLateral: Float?
-    let gForceLongitudinal: Float?
-    let gForceVertical: Float?
+    let gForceLateral: Float
+    let gForceLongitudinal: Float
+    let gForceVertical: Float
     
-    let yaw: Float?
-    let pitch: Float?
-    let roll: Float?
+    let yaw: Float
+    let pitch: Float
+    let roll: Float
     
-    init(data: inout ByteBuffer) throws {
+    init?(data: inout ByteBuffer) {
+        guard let worldPositionX = data.readFloat(),
+              let worldPositionY = data.readFloat(),
+              let worldPositionZ = data.readFloat(),
+              let worldVelocityX = data.readFloat(),
+              let worldVelocityY = data.readFloat(),
+              let worldVelocityZ = data.readFloat(),
+              let worldForwardDirX = data.readInt(as: Int16.self),
+              let worldForwardDirY = data.readInt(as: Int16.self),
+              let worldForwardDirZ = data.readInt(as: Int16.self),
+              let worldRightDirX = data.readInt(as: Int16.self),
+              let worldRightDirY = data.readInt(as: Int16.self),
+              let worldRightDirZ = data.readInt(as: Int16.self),
+              let gForceLateral = data.readFloat(),
+              let gForceLongitudinal = data.readFloat(),
+              let gForceVertical = data.readFloat(),
+              let yaw = data.readFloat(),
+              let pitch = data.readFloat(),
+              let roll = data.readFloat()
+        else {
+            return nil
+        }
         
-        //let val: Float? = try data.readInteger(endianness: .little, as: UInt32.self)
+        self.worldPositionX = worldPositionX
+        self.worldPositionY = worldPositionY
+        self.worldPositionZ = worldPositionZ
         
-        self.worldPositionX = data.readFloat()
-        self.worldPositionY = data.readFloat()
-        self.worldPositionZ = data.readFloat()
+        self.worldVelocityX = worldVelocityX
+        self.worldVelocityY = worldVelocityY
+        self.worldVelocityZ = worldVelocityZ
         
-        self.worldVelocityX = data.readFloat()
-        self.worldVelocityY = data.readFloat()
-        self.worldVelocityZ = data.readFloat()
+        self.worldForwardDirX = worldForwardDirX
+        self.worldForwardDirY = worldForwardDirY
+        self.worldForwardDirZ = worldForwardDirZ
         
-        self.worldForwardDirX = data.readInt(as: Int16.self)
-        self.worldForwardDirY = data.readInt(as: Int16.self)
-        self.worldForwardDirZ = data.readInt(as: Int16.self)
+        self.worldRightDirX = worldRightDirX
+        self.worldRightDirY = worldRightDirY
+        self.worldRightDirZ = worldRightDirZ
         
-        self.worldRightDirX = data.readInt(as: Int16.self)
-        self.worldRightDirY = data.readInt(as: Int16.self)
-        self.worldRightDirZ = data.readInt(as: Int16.self)
+        self.gForceLateral = gForceLateral
+        self.gForceLongitudinal = gForceLongitudinal
+        self.gForceVertical = gForceVertical
         
-        self.gForceLateral = data.readFloat()
-        self.gForceLongitudinal = data.readFloat()
-        self.gForceVertical = data.readFloat()
-        
-        self.yaw = data.readFloat()
-        self.pitch = data.readFloat()
-        self.roll = data.readFloat()
+        self.yaw = yaw
+        self.pitch = pitch
+        self.roll = roll
     }
 }
