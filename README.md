@@ -1,3 +1,3 @@
 # F12020TelemetryPackets
 
-A description of this package.
+Data objects for F1 2020 Telemetry packets
