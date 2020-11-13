@@ -112,7 +112,7 @@ struct LapDataInner: Codable {
     }
 }
 
-struct LapDataSimple: Codable {
+public struct LapDataSimple: Codable {
     let bestLapTime: Double
     let currentLapTime: Double
     let lastLapTime: Double
