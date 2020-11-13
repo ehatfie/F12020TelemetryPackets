@@ -8,7 +8,7 @@
 import Foundation
 import NIO
 
-enum EventStringCode: String {
+public enum EventStringCode: String {
     case SessionStart = "SSTA"  // session started
     case SessionEnd = "SEND"  // session ended
     case FTLP = "FTLP"  // fastest lap
@@ -57,7 +57,7 @@ enum EventStringCode: String {
     }
 }
 
-struct EventDataPacket {
+public struct EventDataPacket {
     let header: PacketHeader
     let eventStringCode: EventStringCode
     let vehicleIdx: Int         // uint8

@@ -7,7 +7,7 @@
 import Foundation
 import NIO
 
-class MotionDataPacketHandler: PacketHandler {
+public class MotionDataPacketHandler: PacketHandler {
     typealias PacketType = MotionDataPacket
     
     func processPacket(data: inout ByteBuffer) {
@@ -15,7 +15,7 @@ class MotionDataPacketHandler: PacketHandler {
     }
 }
 
-struct MotionDataPacket {
+public struct MotionDataPacket {
     let header: PacketHeader
     var carMotionData: [CarMotionData]
     

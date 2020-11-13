@@ -8,7 +8,7 @@
 import Foundation
 import NIO
 
-struct LapDataPacket {
+public struct LapDataPacket {
     /**
      The lap data packet gives details of all the cars in the session.
      Frequency: Rate as specified in menus

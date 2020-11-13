@@ -8,7 +8,7 @@
 import Foundation
 import NIO
 
-struct CarSetupData {
+public struct CarSetupData {
     let frontWing: Int  // uint8.self
     let rearWing: Int  // uint8.self
     

@@ -9,7 +9,7 @@ import Foundation
 //import Vapor
 import NIO
 
-struct LapDataInner: Codable {
+public struct LapDataInner: Codable {
     let lastLapTime: Float
     let currentLapTime: Float
     

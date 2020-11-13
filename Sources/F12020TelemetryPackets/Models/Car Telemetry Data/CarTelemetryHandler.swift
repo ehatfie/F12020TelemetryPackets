@@ -8,7 +8,7 @@
 import Foundation
 import NIO
 
-class CarTelemetryDataHandler: PacketHandler {
+public class CarTelemetryDataHandler: PacketHandler {
     typealias PacketType = CarTelemetryDataPacket
     
     func processPacket(data: inout ByteBuffer) {

@@ -8,7 +8,7 @@
 import Foundation
 import NIO
 
-struct CarTelemetryDataPacket {
+public struct CarTelemetryDataPacket {
     let header: PacketHeader
     let carTelemetryData: [CarTelemetryData]
     let buttonStatus: Int? // uint32 fit flags specifying which buttons are being pressed

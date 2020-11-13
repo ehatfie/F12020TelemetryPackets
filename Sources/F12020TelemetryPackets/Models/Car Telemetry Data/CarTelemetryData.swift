@@ -8,7 +8,7 @@
 import Foundation
 import NIO
 
-struct CarTelemetryData {
+public struct CarTelemetryData {
     let speed: Int  // uint 16 speed in kmh
     let throttle: Float // amount of throttle 0.0 - 1.0
     let steer: Float // -1.0 = full left, 1.0 = full right

@@ -8,7 +8,7 @@
 import Foundation
 import NIO
 
-struct SimpleCarMotionData: Codable {
+public struct SimpleCarMotionData: Codable {
     let worldPositionX: Float
     let worldPositionY: Float
     let worldPositionZ: Float

@@ -8,7 +8,7 @@
 import Foundation
 import NIO
 
-struct CarSetupPacket {
+public struct CarSetupPacket {
     let header: PacketHeader
     let carSetups: [CarSetupData]
     

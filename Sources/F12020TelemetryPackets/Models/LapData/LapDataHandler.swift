@@ -8,7 +8,7 @@
 import Foundation
 import NIO
 
-class LapDataHandler: PacketHandler {
+public class LapDataHandler: PacketHandler {
     typealias PacketType = LapDataPacket
     
     func processPacket(data: inout ByteBuffer) {

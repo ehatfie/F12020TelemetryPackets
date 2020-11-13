@@ -8,7 +8,7 @@
 import Foundation
 import NIO
 
-class EventDataHandler: PacketHandler {
+public class EventDataHandler: PacketHandler {
     typealias PacketType = EventDataPacket
     
     func processPacket(data: inout ByteBuffer) {
