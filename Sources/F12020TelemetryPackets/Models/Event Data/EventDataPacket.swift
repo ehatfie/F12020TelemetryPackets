@@ -58,10 +58,10 @@ public enum EventStringCode: String {
 }
 
 public struct EventDataPacket {
-    let header: PacketHeader
-    let eventStringCode: EventStringCode
-    let vehicleIdx: Int         // uint8
-    let lapTime: Float
+    public let header: PacketHeader
+    public let eventStringCode: EventStringCode
+    public let vehicleIdx: Int         // uint8
+    public let lapTime: Float
     
     public init?(header: PacketHeader, data: inout ByteBuffer) {
         guard let vehicleIdx = data.readInt(as: UInt8.self),
