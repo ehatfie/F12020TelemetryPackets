@@ -86,7 +86,7 @@ struct SessionDataPacket {
         self.numMarshalZones = numMarshalZones
 
         var raceMarshalZones = [MarshalZone]()
-        for _ in 0..<(numMarshalZones ?? 1) {
+        for _ in 0 ..< numMarshalZones {
             guard let marshalZone = MarshalZone(data: &data) else { return nil }
             raceMarshalZones.append(marshalZone)
         }
@@ -98,8 +98,8 @@ struct SessionDataPacket {
 
         var forecastSamples = [WeatherForecastSample]()
 
-        for _ in 0..<(self.numWeatherForecastSamples ?? 0) {
-            guard let forecast = WeatherForecastSamples(data: &data) else { return nil }
+        for _ in 0..< self.numWeatherForecastSamples {
+            guard let forecast = WeatherForecastSample(data: &data) else { return nil }
             forecastSamples.append(forecast)
         }
 
@@ -129,7 +129,7 @@ public struct SessionData: Codable {
     }
 
     // not using
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         self.sessionType = .unknown
         self.weather = .unknown
         self.trackName = "Unknown"
@@ -138,7 +138,7 @@ public struct SessionData: Codable {
         self.sessionDuration = -1
     }
 
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(sessionType.value, forKey: .sessionType)
         try container.encode(weather.value, forKey: .weather)
