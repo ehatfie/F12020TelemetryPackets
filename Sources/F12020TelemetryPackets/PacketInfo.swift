@@ -17,12 +17,12 @@ struct E: Error {
     
 }
 
-struct PacketInfo: Hashable {
-    let packetFormat: Int
-    let packetVersion: Int
-    let packetType: PacketType
+public struct PacketInfo: Hashable {
+    public let packetFormat: Int
+    public let packetVersion: Int
+    public let packetType: PacketType
     
-    init (format: Int?, version: Int?, type: Int?) throws {
+    public init (format: Int?, version: Int?, type: Int?) throws {
         guard
             let format = format,
             let version = version,
@@ -36,7 +36,7 @@ struct PacketInfo: Hashable {
         self.packetType = PacketType(rawValue: type) ?? .none
     }
     
-    init (format: UInt16?, version: UInt8?, type: UInt8?) throws {
+    public init (format: UInt16?, version: UInt8?, type: UInt8?) throws {
         guard
             let format = format,
             let version = version,
@@ -51,7 +51,7 @@ struct PacketInfo: Hashable {
     }
     
     // default initializer
-    init (format: Int, version: Int, type: Int) {
+    public init (format: Int, version: Int, type: Int) {
         self.packetFormat = format
         self.packetVersion = version
         self.packetType = PacketType(rawValue: version) ?? .none
@@ -69,7 +69,7 @@ struct PacketInfo: Hashable {
 ////    PacketInfo(format: 2020, version: 1, type: 7): CarStatusDataHandler()
 //]
 
-enum PacketType: Int {
+public enum PacketType: Int {
     case Motion = 0
     case SessionData = 1
     case LapData = 2
@@ -82,7 +82,7 @@ enum PacketType: Int {
     case LobbyInfo = 9
     case none = -1
     
-    var shortDescription: String {
+    public var shortDescription: String {
         switch self {
         case .Motion:
             return "Motion"

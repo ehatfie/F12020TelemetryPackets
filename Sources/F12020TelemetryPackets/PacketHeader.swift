@@ -20,7 +20,7 @@ public struct PacketHeader {
     public let playerCarIndex: Int //uint8 // index of players car
     public let secondaryPlayerCarIndex: Int // UInt8? // index of secondary players car, 255 if no second player
     
-    init?(data: inout ByteBuffer) {
+    public init?(data: inout ByteBuffer) {
         guard let packetFormat = data.readInt(as: UInt16.self),
               let gameMajorVersion = data.readInt(as: UInt8.self),
               let gameMinorVersion = data.readInt(as: UInt8.self),
