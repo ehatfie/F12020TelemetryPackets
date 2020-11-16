@@ -25,7 +25,7 @@ public struct CarTelemetryData {
     public let tirePressure: [Float] //
     public let surfaceType: Int // uint8 driving surface, make enum??
     
-    init?(data: inout ByteBuffer) {
+    public init?(data: inout ByteBuffer) {
         guard let speed = data.readInt(as: UInt16.self),
               let throttle = data.readFloat(),
               let steer = data.readFloat(),

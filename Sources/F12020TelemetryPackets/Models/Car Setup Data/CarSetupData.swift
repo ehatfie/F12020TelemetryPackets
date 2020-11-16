@@ -9,40 +9,40 @@ import Foundation
 import NIO
 
 public struct CarSetupData {
-    let frontWing: Int  // uint8.self
-    let rearWing: Int  // uint8.self
+    public let frontWing: Int  // uint8.self
+    public let rearWing: Int  // uint8.self
     
-    let onThrottle: Int  // uint8.self, Diff adjustment on throttle %
-    let offThrottle: Int  // uint8.self, Diff adjustment off throttle %
+    public let onThrottle: Int  // uint8.self, Diff adjustment on throttle %
+    public let offThrottle: Int  // uint8.self, Diff adjustment off throttle %
     
-    let frontCamber: Float  // front camber angle
-    let rearCamber: Float  // rear camber angle
+    public let frontCamber: Float  // front camber angle
+    public let rearCamber: Float  // rear camber angle
     
-    let frontToe: Float
-    let rearToe: Float
+    public let frontToe: Float
+    public let rearToe: Float
     
-    let frontSuspension: Int  // uint8.self
-    let rearRuspension: Int  // uint8.self
+    public let frontSuspension: Int  // uint8.self
+    public let rearRuspension: Int  // uint8.self
     
-    let frontAntiRollBar: Int  // uint8.self
-    let rearAntiRollBar: Int  // uint8.self
+    public let frontAntiRollBar: Int  // uint8.self
+    public let rearAntiRollBar: Int  // uint8.self
     
-    let frontSuspensionHeight: Int  // uint8.self
-    let rearSuspensionHeight: Int  // uint8.self
+    public let frontSuspensionHeight: Int  // uint8.self
+    public let rearSuspensionHeight: Int  // uint8.self
     
-    let brakePressure: Int  // uint8.self, percentage
-    let brakeBias: Int  // uint8.self, percentage
+    public let brakePressure: Int  // uint8.self, percentage
+    public let brakeBias: Int  // uint8.self, percentage
     
-    let frontLeftTirePressure: Float  // PSI
-    let frontRightTirePressure: Float  // PSI
+    public let frontLeftTirePressure: Float  // PSI
+    public let frontRightTirePressure: Float  // PSI
     
-    let rearLeftTirePressure: Float  // PSI
-    let rearRightTirePressure: Float  // PSI
+    public let rearLeftTirePressure: Float  // PSI
+    public let rearRightTirePressure: Float  // PSI
     
-    let ballast: Int  // uint8.self
-    let fuelLoad: Float
+    public let ballast: Int  // uint8.self
+    public let fuelLoad: Float
     
-    init?(data: inout ByteBuffer) {
+    public init?(data: inout ByteBuffer) {
         guard let frontWing = data.readInt(as: UInt8.self),
               let rearWing = data.readInt(as: UInt8.self),
               let onThrottle = data.readInt(as: UInt8.self),

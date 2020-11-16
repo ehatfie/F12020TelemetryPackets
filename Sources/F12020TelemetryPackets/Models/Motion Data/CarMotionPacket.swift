@@ -46,9 +46,9 @@ public struct MotionDataPacket {
     public let angularAccelerationZ: Float
     
     // current front wheel angle in raidians
-    var frontWheelsAngle: Float
+    public var frontWheelsAngle: Float
     
-    init?(header: PacketHeader, data: inout ByteBuffer) {
+    public init?(header: PacketHeader, data: inout ByteBuffer) {
         self.header = header
         
         guard let motionData = CarMotionData(data: &data),

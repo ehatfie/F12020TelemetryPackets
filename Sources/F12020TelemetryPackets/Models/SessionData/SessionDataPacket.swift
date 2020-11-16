@@ -7,7 +7,7 @@
 
 import NIO
 
-struct SessionDataPacket {
+public struct SessionDataPacket {
     public let header: PacketHeader?
     public let weather: Int                // uint8 0  = clear, 1  = lightCloud, 2  = overcast, 3  = lightRain, 4  = heavyRain, 5  = storm
     public let trackTemperature: Int //int8      // track temperature in degrees
@@ -36,7 +36,7 @@ struct SessionDataPacket {
     public let numWeatherForecastSamples: Int // uint8
     public let weatherForecastSamples: [WeatherForecastSample]
 
-    init?(header: PacketHeader? = nil, data: inout ByteBuffer) {
+    public init?(header: PacketHeader? = nil, data: inout ByteBuffer) {
         self.header = header
         
         guard let weather = data.readInt(as: UInt8.self),
@@ -119,7 +119,7 @@ public struct SessionData: Codable {
         case sessionType, weather, totalLaps, trackName, sessionTimeLeft, sessionDuration
     }
 
-    init(from data: SessionDataPacket) {
+    public init(from data: SessionDataPacket) {
         self.sessionType = SessionType(from: data.sessionType)
         self.weather = WeatherType(from: data.weather)
         self.totalLaps = data.totalLaps

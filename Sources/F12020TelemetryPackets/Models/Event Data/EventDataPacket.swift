@@ -22,7 +22,7 @@ public enum EventStringCode: String {
     case SPTP = "SPTP"  // Speed Trap Triggered
     case ERRO = "ERROR" // error
     
-    init(value: String?) {
+    public init(value: String?) {
         guard let value = value else { self = .ERRO; return }
         self = EventStringCode(rawValue: value) ?? EventStringCode.ERRO
     }
@@ -63,7 +63,7 @@ public struct EventDataPacket {
     let vehicleIdx: Int         // uint8
     let lapTime: Float
     
-    init?(header: PacketHeader, data: inout ByteBuffer) {
+    public init?(header: PacketHeader, data: inout ByteBuffer) {
         guard let vehicleIdx = data.readInt(as: UInt8.self),
               let lapTime = data.readFloat()
         else {

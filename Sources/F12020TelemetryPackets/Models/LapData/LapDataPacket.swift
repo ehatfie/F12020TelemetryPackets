@@ -18,7 +18,7 @@ public struct LapDataPacket {
     public let header: PacketHeader?
     public let lapData: [LapDataInner] // lap data for all cars on track
     
-    init?(header: PacketHeader? = nil, data: inout ByteBuffer) {
+    public init?(header: PacketHeader? = nil, data: inout ByteBuffer) {
         self.header = header
         
         guard let lapDataValue = LapDataInner(data: &data) else { return nil}

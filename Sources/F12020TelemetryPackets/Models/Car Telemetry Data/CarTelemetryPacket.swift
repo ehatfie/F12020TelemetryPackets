@@ -17,7 +17,7 @@ public struct CarTelemetryDataPacket {
     public let mfdPanelIndexSecondaryPlayer: Int //UInt8, same as above
     public let suggestedGear: Int //Int8 //suggested gear for the player (1-8) and 0 if no gear selected
     
-    init?(header: PacketHeader, data: inout ByteBuffer) {
+    public init?(header: PacketHeader, data: inout ByteBuffer) {
         self.header = header
         guard let packet = CarTelemetryData(data: &data),
               let buttonStatus = data.readInt(as: UInt32.self),

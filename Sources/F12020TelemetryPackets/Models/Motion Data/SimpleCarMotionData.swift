@@ -14,7 +14,7 @@ public struct SimpleCarMotionData: Codable {
     public let worldPositionZ: Float
     public let index: Int
     
-    init?(data: CarMotionData, index: Int) {
+    public init?(data: CarMotionData, index: Int) {
         self.worldPositionX = data.worldPositionX
         self.worldPositionY = data.worldPositionY
         self.worldPositionZ = data.worldPositionZ

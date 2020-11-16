@@ -42,7 +42,7 @@ public struct LapDataInner: Codable {
     public let driverStatus: Int           // uint8 0 = inGarage, 1 = flyingLap, 2 = inLap, 3 = outLap, 4 = onTrack
     public let resultStatus: Int           // uint8 0 = invalid, 1 = inactive, 2 = active, 3 = finished, 4 = disqualified, 5 = notClassified, 6 = retired
     
-    init?(data: inout ByteBuffer) {
+    public init?(data: inout ByteBuffer) {
         guard let lastLapTime = data.readFloat(),
               let currentLapTime = data.readFloat(),
               let sector1Time = data.readInt(as: UInt16.self),
@@ -112,14 +112,14 @@ public struct LapDataInner: Codable {
 }
 
 public struct LapDataSimple: Codable {
-    let bestLapTime: Double
-    let currentLapTime: Double
-    let lastLapTime: Double
+    public let bestLapTime: Double
+    public let currentLapTime: Double
+    public let lastLapTime: Double
     
-    init(from data: LapDataInner) {
-        let best = Double(round((Double(data.bestLapTime ?? 0)) * 100)/100)
-        let current = Double(round((Double(data.currentLapTime ?? 0)) * 100)/100)
-        let last = Double(round((Double(data.lastLapTime ?? 0)) * 100)/100)
+    public init(from data: LapDataInner) {
+        let best = Double(round((Double(data.bestLapTime)) * 100)/100)
+        let current = Double(round((Double(data.currentLapTime)) * 100)/100)
+        let last = Double(round((Double(data.lastLapTime)) * 100)/100)
         
         self.bestLapTime = best
         self.currentLapTime = current

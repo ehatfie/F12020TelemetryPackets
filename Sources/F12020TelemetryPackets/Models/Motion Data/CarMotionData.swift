@@ -33,7 +33,7 @@ public struct CarMotionData: Codable {
     public let pitch: Float
     public let roll: Float
     
-    init?(data: inout ByteBuffer) {
+    public init?(data: inout ByteBuffer) {
         guard let worldPositionX = data.readFloat(),
               let worldPositionY = data.readFloat(),
               let worldPositionZ = data.readFloat(),

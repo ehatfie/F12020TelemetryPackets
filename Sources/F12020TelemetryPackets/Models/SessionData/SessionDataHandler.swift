@@ -8,10 +8,10 @@
 import Foundation
 import NIO
 
-class SessionDataHandler: PacketHandler {
+public class SessionDataHandler: PacketHandler {
     typealias PacketType = SessionDataPacket
     
-    func processPacket(data: inout ByteBuffer) {
+    public func processPacket(data: inout ByteBuffer) {
         let object = PacketType(data: &data)
     }
 }

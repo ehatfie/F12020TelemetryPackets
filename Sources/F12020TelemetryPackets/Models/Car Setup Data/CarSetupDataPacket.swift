@@ -9,10 +9,10 @@ import Foundation
 import NIO
 
 public struct CarSetupPacket {
-    let header: PacketHeader
-    let carSetups: [CarSetupData]
+    public let header: PacketHeader
+    public let carSetups: [CarSetupData]
     
-    init?(header: PacketHeader, data: inout ByteBuffer) {
+    public init?(header: PacketHeader, data: inout ByteBuffer) {
         self.header = header
         guard let packet =  CarSetupData(data: &data) else { return nil }
         print("CAR SETUP \(packet)")

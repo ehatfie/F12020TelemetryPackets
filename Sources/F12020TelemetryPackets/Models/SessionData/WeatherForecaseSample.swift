@@ -15,7 +15,7 @@ public struct WeatherForecastSample {
     public let trackTemperature: Int // Track temp in degrees Celsius
     public let airTemperature: Int // air temp in degrees Celsius
     
-    init?(data: inout ByteBuffer) {
+    public init?(data: inout ByteBuffer) {
         guard let sessionType = data.readInt(as: UInt8.self),
               let timeOffset = data.readInt(as: UInt8.self),
               let weather = data.readInt(as: UInt8.self),
