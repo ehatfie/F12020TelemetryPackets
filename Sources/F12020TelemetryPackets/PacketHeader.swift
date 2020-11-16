@@ -8,17 +8,17 @@
 import Foundation
 import NIO
 
-struct PacketHeader {
-    let packetFormat: Int // game year packet type eg 2020
-    let gameMajorVersion: Int //uint8 // vX.00
-    let gameMinorVersion: Int //uint8 // v1.XX
-    let packetVersion: Int //uint8 //version of packet type
-    let packetId: Int //uint8 // packet type
-    let sessionUID: Int //uint64 // unique session identifier
-    let sessionTime: Float // session timestamp
-    let frameIdentifier: Int // uint32 // Identifier for which frame the packet was retrieved on
-    let playerCarIndex: Int //uint8 // index of players car
-    let secondaryPlayerCarIndex: Int // UInt8? // index of secondary players car, 255 if no second player
+public struct PacketHeader {
+    public let packetFormat: Int // game year packet type eg 2020
+    public let gameMajorVersion: Int //uint8 // vX.00
+    public let gameMinorVersion: Int //uint8 // v1.XX
+    public let packetVersion: Int //uint8 //version of packet type
+    public let packetId: Int //uint8 // packet type
+    public let sessionUID: Int //uint64 // unique session identifier
+    public let sessionTime: Float // session timestamp
+    public let frameIdentifier: Int // uint32 // Identifier for which frame the packet was retrieved on
+    public let playerCarIndex: Int //uint8 // index of players car
+    public let secondaryPlayerCarIndex: Int // UInt8? // index of secondary players car, 255 if no second player
     
     init?(data: inout ByteBuffer) {
         guard let packetFormat = data.readInt(as: UInt16.self),
