@@ -9,29 +9,29 @@ import Foundation
 import NIO
 
 public struct CarMotionData: Codable {
-    let worldPositionX: Float
-    let worldPositionY: Float
-    let worldPositionZ: Float
+    public let worldPositionX: Float
+    public let worldPositionY: Float
+    public let worldPositionZ: Float
     
-    let worldVelocityX: Float
-    let worldVelocityY: Float
-    let worldVelocityZ: Float
+    public let worldVelocityX: Float
+    public let worldVelocityY: Float
+    public let worldVelocityZ: Float
     
-    let worldForwardDirX: Int   // Int16
-    let worldForwardDirY: Int   // Int16
-    let worldForwardDirZ: Int   // Int16
+    public let worldForwardDirX: Int   // Int16
+    public let worldForwardDirY: Int   // Int16
+    public let worldForwardDirZ: Int   // Int16
     
-    let worldRightDirX: Int     // Int16
-    let worldRightDirY: Int     // Int16
-    let worldRightDirZ: Int     // Int16
+    public let worldRightDirX: Int     // Int16
+    public let worldRightDirY: Int     // Int16
+    public let worldRightDirZ: Int     // Int16
     
-    let gForceLateral: Float
-    let gForceLongitudinal: Float
-    let gForceVertical: Float
+    public let gForceLateral: Float
+    public let gForceLongitudinal: Float
+    public let gForceVertical: Float
     
-    let yaw: Float
-    let pitch: Float
-    let roll: Float
+    public let yaw: Float
+    public let pitch: Float
+    public let roll: Float
     
     init?(data: inout ByteBuffer) {
         guard let worldPositionX = data.readFloat(),

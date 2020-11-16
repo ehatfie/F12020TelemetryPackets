@@ -22,14 +22,14 @@ public struct CarTelemetryDataPacket {
         guard let packet = CarTelemetryData(data: &data),
               let buttonStatus = data.readInt(as: UInt32.self),
               let mfdPanelIndex = data.readInt(as: UInt8.self),
-              let mdfPanelIndexSecondaryPlayer = data.readInt(as: UInt8.self),
+              let mfdPanelIndexSecondaryPlayer = data.readInt(as: UInt8.self),
               let suggestedGear = data.readInt(as: Int8.self)
               else { return nil }
-        self.carTelemetryData = [packet]
         
-        self.buttonStatus = data.readInt(as: UInt32.self)
-        self.mfdPanelIndex = data.readInt(as: UInt8.self)
-        self.mfdPanelIndexSecondaryPlayer = data.readInt(as: UInt8.self)
-        self.suggestedGear = data.readInt(as: Int8.self)
+        self.carTelemetryData = [packet]
+        self.buttonStatus = buttonStatus
+        self.mfdPanelIndex = mfdPanelIndex
+        self.mfdPanelIndexSecondaryPlayer = mfdPanelIndexSecondaryPlayer
+        self.suggestedGear = suggestedGear
     }
 }

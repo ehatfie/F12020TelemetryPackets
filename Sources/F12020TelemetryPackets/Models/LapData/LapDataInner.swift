@@ -6,42 +6,41 @@
 //
 
 import Foundation
-//import Vapor
 import NIO
 
 public struct LapDataInner: Codable {
-    let lastLapTime: Float
-    let currentLapTime: Float
+    public let lastLapTime: Float
+    public let currentLapTime: Float
     
-    let sector1Time: Int          // sector 1 time in milliseconds
-    let sector2Time: Int          // sector 2 time in milliseconds
+    public let sector1Time: Int          // sector 1 time in milliseconds
+    public let sector2Time: Int          // sector 2 time in milliseconds
     
-    let bestLapTime: Float          // best lap time of the session
-    let bestLapNum: Int           // Lap number the best lap time was set on
-    let bestLapSector1Time: Int  // sector 1 time of the best lap in the session in milliseconds
-    let bestLapSector2Time: Int  // sector 2 time of the best lap in the session in milliseconds
-    let bestLapSector3Time: Int  // sector 3 time of the best lap in the session in milliseconds
+    public let bestLapTime: Float          // best lap time of the session
+    public let bestLapNum: Int           // Lap number the best lap time was set on
+    public let bestLapSector1Time: Int  // sector 1 time of the best lap in the session in milliseconds
+    public let bestLapSector2Time: Int  // sector 2 time of the best lap in the session in milliseconds
+    public let bestLapSector3Time: Int  // sector 3 time of the best lap in the session in milliseconds
     
-    let bestOverallSector1Time: Int // Best overall sector 1 time of the session
-    let bestOverallSector1LapNum: Int // Lap number of best overall sector 1 time
-    let bestOverallSector2Time: Int // Best overall sector 2 time of the session
-    let bestOverallSector2LapNum: Int // lap number of best overall sector 2 time
-    let bestOverallSector3Time: Int // best overall sector 3 time of the session
-    let bestOverallSector3LapNum: Int // lap numbe rof best overall sector 3 time
+    public let bestOverallSector1Time: Int // Best overall sector 1 time of the session
+    public let bestOverallSector1LapNum: Int // Lap number of best overall sector 1 time
+    public let bestOverallSector2Time: Int // Best overall sector 2 time of the session
+    public let bestOverallSector2LapNum: Int // lap number of best overall sector 2 time
+    public let bestOverallSector3Time: Int // best overall sector 3 time of the session
+    public let bestOverallSector3LapNum: Int // lap numbe rof best overall sector 3 time
     
-    let lapDistance: Float          // distance car is around current lap in meters
-    let totalDistance: Float        // total distance travelled in session in meters
+    public let lapDistance: Float          // distance car is around current lap in meters
+    public let totalDistance: Float        // total distance travelled in session in meters
     
-    let safetyCarDelta: Float       // delta in seconds for safety car
-    let carPosition: Int            // uint8 car race position
-    let currentLapNum: Int          // uint8
-    let pitStatus: Int              // uint8 0 = none, 1 = pitting, 2 = in pits
-    let sector: Int                 // uint8 0 = sector1, 1 = sector2, etc
-    let currentLapInvalid: Int      // uint8 0 =  valid, 1 = invalid
-    let penalties: Int              // uint8 accumulated time penalties in seconds
-    let gridPosition: Int           // uint8 grid position vehicle started in
-    let driverStatus: Int           // uint8 0 = inGarage, 1 = flyingLap, 2 = inLap, 3 = outLap, 4 = onTrack
-    let resultStatus: Int           // uint8 0 = invalid, 1 = inactive, 2 = active, 3 = finished, 4 = disqualified, 5 = notClassified, 6 = retired
+    public let safetyCarDelta: Float       // delta in seconds for safety car
+    public let carPosition: Int            // uint8 car race position
+    public let currentLapNum: Int          // uint8
+    public let pitStatus: Int              // uint8 0 = none, 1 = pitting, 2 = in pits
+    public let sector: Int                 // uint8 0 = sector1, 1 = sector2, etc
+    public let currentLapInvalid: Int      // uint8 0 =  valid, 1 = invalid
+    public let penalties: Int              // uint8 accumulated time penalties in seconds
+    public let gridPosition: Int           // uint8 grid position vehicle started in
+    public let driverStatus: Int           // uint8 0 = inGarage, 1 = flyingLap, 2 = inLap, 3 = outLap, 4 = onTrack
+    public let resultStatus: Int           // uint8 0 = invalid, 1 = inactive, 2 = active, 3 = finished, 4 = disqualified, 5 = notClassified, 6 = retired
     
     init?(data: inout ByteBuffer) {
         guard let lastLapTime = data.readFloat(),

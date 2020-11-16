@@ -15,8 +15,8 @@ public struct LapDataPacket {
      Size: 843 bytes
      Version: 1
      */
-    let header: PacketHeader?
-    let lapData: [LapDataInner] // lap data for all cars on track
+    public let header: PacketHeader?
+    public let lapData: [LapDataInner] // lap data for all cars on track
     
     init?(header: PacketHeader? = nil, data: inout ByteBuffer) {
         self.header = header

@@ -27,7 +27,7 @@ public enum EventStringCode: String {
         self = EventStringCode(rawValue: value) ?? EventStringCode.ERRO
     }
     
-    var value: String {
+    public var value: String {
         switch self {
         case .SessionStart:
             return "Session Started"

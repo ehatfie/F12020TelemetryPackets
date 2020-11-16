@@ -16,8 +16,8 @@ public class MotionDataPacketHandler: PacketHandler {
 }
 
 public struct MotionDataPacket {
-    let header: PacketHeader
-    var carMotionData: [CarMotionData]
+    public let header: PacketHeader
+    public var carMotionData: [CarMotionData]
     
     /*
      TODO:
@@ -27,23 +27,23 @@ public struct MotionDataPacket {
      wheelSpeed RL, RR, FL, FR
      wheelSlip RL, RR, FL, FR
      */
-    let suspensionPosition: [Float]
-    let suspensionVelocity: [Float]
-    let suspensionAcceleration: [Float]
-    let wheelSpeed: [Float]
-    let wheelSlip: [Float]
+    public let suspensionPosition: [Float]
+    public let suspensionVelocity: [Float]
+    public let suspensionAcceleration: [Float]
+    public let wheelSpeed: [Float]
+    public let wheelSlip: [Float]
     // velocities in local space
-    let localVelocityX: Float
-    let localVelocityY: Float
-    let localVelocityZ: Float
+    public let localVelocityX: Float
+    public let localVelocityY: Float
+    public let localVelocityZ: Float
     
-    let angularVelocityX: Float
-    let angularVelocityY: Float
-    let angularVelocityZ: Float
+    public let angularVelocityX: Float
+    public let angularVelocityY: Float
+    public let angularVelocityZ: Float
     
-    let angularAccelerationX: Float
-    let angularAccelerationY: Float
-    let angularAccelerationZ: Float
+    public let angularAccelerationX: Float
+    public let angularAccelerationY: Float
+    public let angularAccelerationZ: Float
     
     // current front wheel angle in raidians
     var frontWheelsAngle: Float

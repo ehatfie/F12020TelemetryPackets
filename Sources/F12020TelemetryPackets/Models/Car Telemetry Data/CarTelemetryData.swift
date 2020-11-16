@@ -9,21 +9,21 @@ import Foundation
 import NIO
 
 public struct CarTelemetryData {
-    let speed: Int  // uint 16 speed in kmh
-    let throttle: Float // amount of throttle 0.0 - 1.0
-    let steer: Float // -1.0 = full left, 1.0 = full right
-    let brake: Float // amount of brake 0 to 100
-    let clutch: Int // uint8 amount of clutch 0 to 100
-    let gear: Int // int8 gear selected -1 = r, 0 = N, 1 - 7
-    let engineRPM: Int // uint16
-    let drs: Int // uint8 0 = off, 1 = on
-    let revLightsPercent: Int // uint8
-    let brakesTemperature: [Int] // uint16 * 4 celcius
-    let tiresSurfaceTemperature: [Int] // uint16 * 4 celcius
-    let tiresInnerTemperature: [Int] // uint16 * 4
-    let engineTemperature: Int // uint 16 temp in celcius
-    let tirePressure: [Float] //
-    let surfaceType: Int // uint8 driving surface, make enum??
+    public let speed: Int  // uint 16 speed in kmh
+    public let throttle: Float // amount of throttle 0.0 - 1.0
+    public let steer: Float // -1.0 = full left, 1.0 = full right
+    public let brake: Float // amount of brake 0 to 100
+    public let clutch: Int // uint8 amount of clutch 0 to 100
+    public let gear: Int // int8 gear selected -1 = r, 0 = N, 1 - 7
+    public let engineRPM: Int // uint16
+    public let drs: Int // uint8 0 = off, 1 = on
+    public let revLightsPercent: Int // uint8
+    public let brakesTemperature: [Int] // uint16 * 4 celcius
+    public let tiresSurfaceTemperature: [Int] // uint16 * 4 celcius
+    public let tiresInnerTemperature: [Int] // uint16 * 4
+    public let engineTemperature: Int // uint 16 temp in celcius
+    public let tirePressure: [Float] //
+    public let surfaceType: Int // uint8 driving surface, make enum??
     
     init?(data: inout ByteBuffer) {
         guard let speed = data.readInt(as: UInt16.self),

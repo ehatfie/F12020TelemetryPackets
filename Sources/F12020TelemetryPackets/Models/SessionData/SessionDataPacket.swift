@@ -8,33 +8,33 @@
 import NIO
 
 struct SessionDataPacket {
-    let header: PacketHeader?
-    let weather: Int                // uint8 0  = clear, 1  = lightCloud, 2  = overcast, 3  = lightRain, 4  = heavyRain, 5  = storm
-    let trackTemperature: Int //int8      // track temperature in degrees
-    let airTemperature: Int //int8        // air temperature in celcius
+    public let header: PacketHeader?
+    public let weather: Int                // uint8 0  = clear, 1  = lightCloud, 2  = overcast, 3  = lightRain, 4  = heavyRain, 5  = storm
+    public let trackTemperature: Int //int8      // track temperature in degrees
+    public let airTemperature: Int //int8        // air temperature in celcius
 
-    let totalLaps: Int //uint8            // total number of laps in the race
-    let trackLength: Int // uint16         // track lenght in meters
-    let sessionType: Int // uint8          // 0  = unknown, 1  = Practice 1, 2  = Practice 2, 3  = Practice 3, 4  = short practice 5  = Q1, 6  = Q2, 7  = Q3, 8  = short Qualifying, 9  = One Shot Qualifying, 10  = Race, 11  = Race2, 12  = Time Trial
-    let trackId: Int // int8               //  -1 for uknown 0 =21 for tracks in season order
-    let m_formula: Int // uint8            // Formula type, 0 = F1 Modern, 1 = F1 Classic, 2 = F2
+    public let totalLaps: Int //uint8            // total number of laps in the race
+    public let trackLength: Int // uint16         // track lenght in meters
+    public let sessionType: Int // uint8          // 0  = unknown, 1  = Practice 1, 2  = Practice 2, 3  = Practice 3, 4  = short practice 5  = Q1, 6  = Q2, 7  = Q3, 8  = short Qualifying, 9  = One Shot Qualifying, 10  = Race, 11  = Race2, 12  = Time Trial
+    public let trackId: Int // int8               //  -1 for uknown 0 =21 for tracks in season order
+    public let m_formula: Int // uint8            // Formula type, 0 = F1 Modern, 1 = F1 Classic, 2 = F2
 
-    let sessionTimeLeft: Int // uint16     // time left in session in seconds
-    let sessionDuration: Int // uint16     // session duration in seconds
+    public let sessionTimeLeft: Int // uint16     // time left in session in seconds
+    public let sessionDuration: Int // uint16     // session duration in seconds
 
-    let pitSpeedLimiter: Int // uint8        // pit speed limit in km/h
+    public let pitSpeedLimiter: Int // uint8        // pit speed limit in km/h
 
-    let gamePaused: Int // Uint8           // whether game is paused
-    let isSpectating: Int // uint8         // whether player is spectating
-    let spectatorCarIndex: Int // uint8    // index of car being spectated
-    let sliProNativeSupport: Int // uint8  // 0 = inactive, 1 = active
+    public let gamePaused: Int // Uint8           // whether game is paused
+    public let isSpectating: Int // uint8         // whether player is spectating
+    public let spectatorCarIndex: Int // uint8    // index of car being spectated
+    public let sliProNativeSupport: Int // uint8  // 0 = inactive, 1 = active
 
-    let numMarshalZones: Int // uint8      // number of marshal zones max 21
-    let marshalZones: [MarshalZone] // list of marshal zones
-    let safetyCarStatus: Int // uint8      // 0 = no safety car, 1 = full safety car, 2 = virtual safety car
-    let networkGame: Int // uint8          // 0 = offline, 1 = online
-    let numWeatherForecastSamples: Int // uint8
-    let weatherForecastSamples: [WeatherForecastSample]
+    public let numMarshalZones: Int // uint8      // number of marshal zones max 21
+    public let marshalZones: [MarshalZone] // list of marshal zones
+    public let safetyCarStatus: Int // uint8      // 0 = no safety car, 1 = full safety car, 2 = virtual safety car
+    public let networkGame: Int // uint8          // 0 = offline, 1 = online
+    public let numWeatherForecastSamples: Int // uint8
+    public let weatherForecastSamples: [WeatherForecastSample]
 
     init?(header: PacketHeader? = nil, data: inout ByteBuffer) {
         self.header = header
@@ -108,12 +108,12 @@ struct SessionDataPacket {
 }
 
 public struct SessionData: Codable {
-    let sessionType: SessionType
-    let weather: WeatherType
-    let trackName: String
-    let totalLaps: Int
-    let sessionTimeLeft: Int
-    let sessionDuration: Int
+    public let sessionType: SessionType
+    public let weather: WeatherType
+    public let trackName: String
+    public let totalLaps: Int
+    public let sessionTimeLeft: Int
+    public let sessionDuration: Int
 
     enum CodingKeys: CodingKey {
         case sessionType, weather, totalLaps, trackName, sessionTimeLeft, sessionDuration
@@ -122,10 +122,10 @@ public struct SessionData: Codable {
     init(from data: SessionDataPacket) {
         self.sessionType = SessionType(from: data.sessionType)
         self.weather = WeatherType(from: data.weather)
-        self.totalLaps = data.totalLaps ?? -1
-        self.trackName = TrackIDs[data.trackId ?? -1] ?? "Unrecognized Track"
-        self.sessionTimeLeft = data.sessionTimeLeft ?? -1
-        self.sessionDuration = data.sessionDuration ?? -1
+        self.totalLaps = data.totalLaps
+        self.trackName = TrackIDs[data.trackId] ?? "Unrecognized Track"
+        self.sessionTimeLeft = data.sessionTimeLeft
+        self.sessionDuration = data.sessionDuration
     }
 
     // not using
