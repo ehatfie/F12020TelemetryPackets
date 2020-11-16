@@ -98,7 +98,7 @@ struct SessionDataPacket {
 
         var forecastSamples = [WeatherForecastSample]()
 
-        for _ in 0..< self.numWeatherForecastSamples {
+        for _ in 0 ..< self.numWeatherForecastSamples {
             guard let forecast = WeatherForecastSample(data: &data) else { return nil }
             forecastSamples.append(forecast)
         }
