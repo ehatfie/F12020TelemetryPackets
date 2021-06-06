@@ -7,6 +7,7 @@
 
 import NIO
 
+
 public struct SessionDataPacket {
     public let header: PacketHeader?
     public let weather: Int                // uint8 0  = clear, 1  = lightCloud, 2  = overcast, 3  = lightRain, 4  = heavyRain, 5  = storm
@@ -40,8 +41,8 @@ public struct SessionDataPacket {
         self.header = header
         
         guard let weather = data.readInt(as: UInt8.self),
-              let trackTemperature = data.readInt(as: UInt8.self),
-              let airTemperature = data.readInt(as: UInt8.self),
+              let trackTemperature = data.readInt(as: Int8.self),
+              let airTemperature = data.readInt(as: Int8.self),
               let totalLaps = data.readInt(as: UInt8.self),
               let trackLength = data.readInt(as: UInt16.self),
               let sessionType = data.readInt(as: UInt8.self),
@@ -55,9 +56,11 @@ public struct SessionDataPacket {
               let spectatorCarIndex = data.readInt(as: UInt8.self),
               let sliProNativeSupport = data.readInt(as: UInt8.self),
               let numMarshalZones = data.readInt(as: UInt8.self),
+              let marshalZones = getMarshalZones(count: numMarshalZones, data: &data),
               let safetyCarStatus = data.readInt(as: UInt8.self),
               let networkGame = data.readInt(as: UInt8.self),
-              let numWeatherForecastSamples = data.readInt(as: UInt8.self)
+              let numWeatherForecastSamples = data.readInt(as: UInt8.self),
+              let weatherForecastSamples = getWeatherForcastSample(count: numWeatherForecastSamples, data: &data)
         else {
             return nil
         }
@@ -84,67 +87,61 @@ public struct SessionDataPacket {
         self.sliProNativeSupport = sliProNativeSupport
 
         self.numMarshalZones = numMarshalZones
-
-        var raceMarshalZones = [MarshalZone]()
-        for _ in 0 ..< numMarshalZones {
-            guard let marshalZone = MarshalZone(data: &data) else { return nil }
-            raceMarshalZones.append(marshalZone)
-        }
-
-        self.marshalZones = raceMarshalZones
+        self.marshalZones = marshalZones
         self.safetyCarStatus = safetyCarStatus
         self.networkGame = networkGame
         self.numWeatherForecastSamples = numWeatherForecastSamples
-
-        var forecastSamples = [WeatherForecastSample]()
-
-        for _ in 0 ..< self.numWeatherForecastSamples {
-            guard let forecast = WeatherForecastSample(data: &data) else { return nil }
-            forecastSamples.append(forecast)
-        }
-
-        self.weatherForecastSamples = forecastSamples
+        self.weatherForecastSamples = weatherForecastSamples
     }
+
 }
 
-public struct SessionData: Codable {
-    public let sessionType: SessionType
-    public let weather: WeatherType
-    public let trackName: String
-    public let totalLaps: Int
-    public let sessionTimeLeft: Int
-    public let sessionDuration: Int
-
-    enum CodingKeys: CodingKey {
-        case sessionType, weather, totalLaps, trackName, sessionTimeLeft, sessionDuration
+private func getMarshalZones(count: Int, data: inout ByteBuffer) -> [MarshalZone]? {
+    var raceMarshalZones = [MarshalZone]()
+    for _ in 0 ..< count {
+        guard let marshalZone = MarshalZone(data: &data) else {
+            return nil
+        }
+        raceMarshalZones.append(marshalZone)
     }
+    
+    return raceMarshalZones
+}
 
-    public init(from data: SessionDataPacket) {
-        self.sessionType = SessionType(from: data.sessionType)
-        self.weather = WeatherType(from: data.weather)
-        self.totalLaps = data.totalLaps
-        self.trackName = TrackIDs[data.trackId] ?? "Unrecognized Track"
-        self.sessionTimeLeft = data.sessionTimeLeft
-        self.sessionDuration = data.sessionDuration
+private func getWeatherForcastSample(count: Int, data: inout ByteBuffer) -> [WeatherForecastSample]? {
+    var forecastSamples = [WeatherForecastSample]()
+    
+    for _ in 0 ..< count {
+        guard let forecast = WeatherForecastSample(data: &data) else {
+            return nil
+        }
+        forecastSamples.append(forecast)
     }
+    
+    return forecastSamples
+}
 
-    // not using
-    public init(from decoder: Decoder) throws {
-        self.sessionType = .unknown
-        self.weather = .unknown
-        self.trackName = "Unknown"
-        self.totalLaps = -1
-        self.sessionTimeLeft = -1
-        self.sessionDuration = -1
+/**
+ Doesnt quite work yet
+ */
+private func getGeneric<T: DataPacket>(count: Int, data: inout ByteBuffer) -> [T]? {
+    var returnValues = [T]()
+    for _ in 0 ..< count {
+        guard let value = T(data: &data) else { return nil }
+        returnValues.append(value)
+        
     }
+    return returnValues
+}
 
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(sessionType.value, forKey: .sessionType)
-        try container.encode(weather.value, forKey: .weather)
-        try container.encode(trackName, forKey: .trackName)
-        try container.encode(totalLaps, forKey: .totalLaps)
-        try container.encode(sessionTimeLeft, forKey: .sessionTimeLeft)
-        try container.encode(sessionDuration, forKey: .sessionDuration)
+extension ByteBuffer {
+    mutating func getGeneric(count: Int, as type: DataPacket.Type) -> [DataPacket]? {
+        var returnValues = [DataPacket]()
+        for _ in 0 ..< count {
+            guard let value = type.init(data: &self) else { return nil }
+            returnValues.append(value)
+            
+        }
+        return returnValues
     }
 }

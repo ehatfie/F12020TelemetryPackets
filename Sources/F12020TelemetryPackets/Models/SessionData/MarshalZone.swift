@@ -8,7 +8,11 @@
 import Foundation
 import NIO
 
-public struct MarshalZone {
+protocol DataPacket {
+    init?(data: inout ByteBuffer)
+}
+
+public struct MarshalZone: DataPacket {
     public let zoneStart: Float // fraction (0..1) of way through the lap the zone starts
     public let zoneFlag: Int //Int8 // -1 invalid/unknown, 0 = none, 1 = green, 2 = blue, 3 = yellow, 4 = red
     
@@ -20,5 +24,10 @@ public struct MarshalZone {
         }
         self.zoneStart = zoneStart
         self.zoneFlag = zoneFlag
+    }
+    
+    public init() {
+        zoneStart = 0
+        zoneFlag = -1
     }
 }
