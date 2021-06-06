@@ -54,7 +54,7 @@ public struct PacketInfo: Hashable {
     public init (format: Int, version: Int, type: Int) {
         self.packetFormat = format
         self.packetVersion = version
-        self.packetType = PacketType(rawValue: version) ?? .none
+        self.packetType = PacketType(rawValue: type) ?? .none
     }
 }
 
