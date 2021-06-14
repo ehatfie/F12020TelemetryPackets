@@ -19,9 +19,9 @@ public struct CarTelemetryDataPacket {
     
     public init?(header: PacketHeader, data: inout ByteBuffer) {
         self.header = header
-        var packets: [CarTelemetryData]()
+        var packets = [CarTelemetryData]()
         
-        for _ in 0 ..<22 {
+        for _ in 0 ..< 22 {
             guard let packet = CarTelemetryData(data: &data) else {
                 return nil
             }
