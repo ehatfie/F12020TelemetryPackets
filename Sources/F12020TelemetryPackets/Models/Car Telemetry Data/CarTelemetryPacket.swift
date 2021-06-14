@@ -19,14 +19,21 @@ public struct CarTelemetryDataPacket {
     
     public init?(header: PacketHeader, data: inout ByteBuffer) {
         self.header = header
-        guard let packet = CarTelemetryData(data: &data),
-              let buttonStatus = data.readInt(as: UInt32.self),
+        var packets: [CarTelemetryData]()
+        
+        for _ in 0 ..<22 {
+            guard let packet = CarTelemetryData(data: &data) else {
+                return nil
+            }
+            packets.append(packet)
+        }
+        guard let buttonStatus = data.readInt(as: UInt32.self),
               let mfdPanelIndex = data.readInt(as: UInt8.self),
               let mfdPanelIndexSecondaryPlayer = data.readInt(as: UInt8.self),
               let suggestedGear = data.readInt(as: Int8.self)
               else { return nil }
         
-        self.carTelemetryData = [packet]
+        self.carTelemetryData = packets
         self.buttonStatus = buttonStatus
         self.mfdPanelIndex = mfdPanelIndex
         self.mfdPanelIndexSecondaryPlayer = mfdPanelIndexSecondaryPlayer

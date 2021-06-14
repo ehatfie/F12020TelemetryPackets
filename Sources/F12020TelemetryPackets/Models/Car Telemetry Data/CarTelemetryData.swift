@@ -23,7 +23,7 @@ public struct CarTelemetryData {
     public let tiresInnerTemperature: [Int] // uint16 * 4
     public let engineTemperature: Int // uint 16 temp in celcius
     public let tirePressure: [Float] //
-    public let surfaceType: Int // uint8 driving surface, make enum??
+    public let surfaceType: [Int] // uint8 driving surface, make enum??
     
     public init?(data: inout ByteBuffer) {
         guard let speed = data.readInt(as: UInt16.self),
@@ -36,11 +36,11 @@ public struct CarTelemetryData {
               let drs = data.readInt(as: UInt8.self),
               let revLightsPercent = data.readInt(as: UInt8.self),
               let brakesTemperatures = data.readMultipleInt(count: 4,as: UInt16.self),
-              let tiresSurfaceTemperatures = data.readMultipleInt(count: 4,as: UInt16.self),
-              let tiresInnerTemperatures = data.readMultipleInt(count: 4,as: UInt16.self),
+              let tiresSurfaceTemperatures = data.readMultipleInt(count: 4,as: UInt8.self),
+              let tiresInnerTemperatures = data.readMultipleInt(count: 4,as: UInt8.self),
               let engineTemperature = data.readInt(as: UInt16.self),
               let pressures = data.readMultipleFloat(count: 4),
-              let surfaceType = data.readInt(as: UInt8.self)
+              let surfaceType = data.readMultipleInt(count: 4, as: UInt8.self)
         else {
             return nil
         }
