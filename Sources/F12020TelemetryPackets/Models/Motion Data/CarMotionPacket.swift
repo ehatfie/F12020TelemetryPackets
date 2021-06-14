@@ -51,7 +51,15 @@ public struct MotionDataPacket {
     public init?(header: PacketHeader, data: inout ByteBuffer) {
         self.header = header
         
-        guard let motionData = CarMotionData(data: &data),
+        var carMotionData = [CarMotionData]()
+        
+        for _ in 0...21 {
+            if let motionData = CarMotionData(data: &data) {
+                carMotionData.append(motionData)
+            }
+        }
+        
+        guard carMotionData.count > 0,
               let suspensionPosition = data.readMultipleFloat(count: 4),
               let suspensionVelocity = data.readMultipleFloat(count: 4),
               let suspensionAcceleration = data.readMultipleFloat(count: 4),
@@ -68,7 +76,8 @@ public struct MotionDataPacket {
               let angularAccelerationZ = data.readFloat(),
               let frontWheelsAngle = data.readFloat()
         else { return nil }
-        self.carMotionData = [motionData]
+        
+        self.carMotionData = carMotionData
         
         self.suspensionPosition = suspensionPosition
         self.suspensionVelocity = suspensionVelocity
