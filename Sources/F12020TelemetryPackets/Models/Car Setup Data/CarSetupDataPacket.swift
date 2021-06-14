@@ -15,7 +15,7 @@ public struct CarSetupPacket {
     public init?(header: PacketHeader, data: inout ByteBuffer) {
         self.header = header
         guard let packet =  CarSetupData(data: &data) else { return nil }
-        print("CAR SETUP \(packet)")
+        
         self.carSetups = [packet]
     }
 }

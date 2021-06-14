@@ -8,7 +8,7 @@
 import Foundation
 import NIO
 
-public struct CarSetupData {
+public struct CarSetupData: Equatable {
     public let frontWing: Int  // uint8.self
     public let rearWing: Int  // uint8.self
     
@@ -22,7 +22,7 @@ public struct CarSetupData {
     public let rearToe: Float
     
     public let frontSuspension: Int  // uint8.self
-    public let rearRuspension: Int  // uint8.self
+    public let rearSuspension: Int  // uint8.self
     
     public let frontAntiRollBar: Int  // uint8.self
     public let rearAntiRollBar: Int  // uint8.self
@@ -82,7 +82,7 @@ public struct CarSetupData {
         self.rearToe = rearToe
         
         self.frontSuspension = frontSuspension
-        self.rearRuspension = rearSuspension
+        self.rearSuspension = rearSuspension
         
         self.frontAntiRollBar = frontAntiRollbar
         self.rearAntiRollBar = rearAntiRollbar
