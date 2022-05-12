@@ -8,8 +8,12 @@
 import Foundation
 import NIO
 
-public struct CarSetupPacket {
-    public let header: PacketHeader
+public protocol IsPacket {
+    var header: PacketHeader { get set }
+}
+
+public struct CarSetupPacket: IsPacket {
+    public var header: PacketHeader
     public let carSetups: [CarSetupData]
     
     public init?(header: PacketHeader, data: inout ByteBuffer) {

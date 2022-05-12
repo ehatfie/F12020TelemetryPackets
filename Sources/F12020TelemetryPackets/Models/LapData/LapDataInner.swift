@@ -109,6 +109,40 @@ public struct LapDataInner: Codable {
         self.driverStatus = driverStatus
         self.resultStatus = resutlStatus
     }
+    
+    public init() {
+        self.lastLapTime = 0
+        self.currentLapTime = 0
+        self.sector1Time = 0
+        self.sector2Time = 0
+        self.bestLapTime = 0
+        self.bestLapNum = 0
+        self.bestLapSector1Time = 0
+        self.bestLapSector2Time = 0
+        self.bestLapSector3Time = 0
+        self.bestOverallSector1Time = 0
+        self.bestOverallSector1LapNum = 0
+        self.bestOverallSector2Time = 0
+        self.bestOverallSector2LapNum = 0
+        self.bestOverallSector3Time = 0
+        self.bestOverallSector3LapNum = 0
+        self.lapDistance = 0
+        self.totalDistance = 0
+        self.safetyCarDelta = 0
+        self.carPosition = 0
+        self.currentLapNum = 0
+        self.pitStatus = 0
+        self.sector = 0
+        self.currentLapInvalid = 0
+        self.penalties = 0
+        self.gridPosition = 0
+        self.driverStatus = 0
+        self.resultStatus = 0
+    }
+}
+
+extension LapDataInner: Identifiable {
+    public var id: Int { currentLapNum }
 }
 
 public struct LapDataSimple: Codable {

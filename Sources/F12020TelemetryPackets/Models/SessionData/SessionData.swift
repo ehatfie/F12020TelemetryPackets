@@ -12,6 +12,7 @@ public struct SessionData: Codable {
     public let weather: WeatherType
     public let trackName: String
     public let totalLaps: Int
+    public let sessionTime: Float?
     public let sessionTimeLeft: Int
     public let sessionDuration: Int
 
@@ -24,8 +25,19 @@ public struct SessionData: Codable {
         self.weather = WeatherType(from: data.weather)
         self.totalLaps = data.totalLaps
         self.trackName = TrackIDs[data.trackId] ?? "Unrecognized Track"
+        self.sessionTime = data.header?.sessionTime
         self.sessionTimeLeft = data.sessionTimeLeft
         self.sessionDuration = data.sessionDuration
+    }
+    
+    public init() {
+        self.sessionType = SessionType.unknown
+        self.weather = WeatherType.unknown
+        self.totalLaps = -1
+        self.trackName = ""
+        self.sessionTimeLeft = -1
+        self.sessionDuration = -1
+        self.sessionTime = -1
     }
 
     // not using
@@ -36,6 +48,7 @@ public struct SessionData: Codable {
         self.totalLaps = -1
         self.sessionTimeLeft = -1
         self.sessionDuration = -1
+        self.sessionTime = -1
     }
 
     public func encode(to encoder: Encoder) throws {

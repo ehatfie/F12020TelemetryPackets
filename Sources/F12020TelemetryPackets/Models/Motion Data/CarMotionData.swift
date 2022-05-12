@@ -80,4 +80,30 @@ public struct CarMotionData: Codable {
         self.pitch = pitch
         self.roll = roll
     }
+    
+    public init() {
+        self.worldPositionX = 0
+        self.worldPositionY = 0
+        self.worldPositionZ = 0
+        
+        self.worldVelocityX = 0
+        self.worldVelocityY = 0
+        self.worldVelocityZ = 0
+        
+        self.worldForwardDirX = 0
+        self.worldForwardDirY = 0
+        self.worldForwardDirZ = 0
+        
+        self.worldRightDirX = 0
+        self.worldRightDirY = 0
+        self.worldRightDirZ = 0
+        
+        self.gForceLateral = 0
+        self.gForceLongitudinal = 0
+        self.gForceVertical = 0
+        
+        self.yaw = 0
+        self.pitch = 0
+        self.roll = 0
+    }
 }

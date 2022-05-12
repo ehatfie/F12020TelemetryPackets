@@ -61,4 +61,22 @@ public struct CarTelemetryData {
         self.tirePressure = pressures
         self.surfaceType = surfaceType
     }
+    
+    public init() {
+        self.speed = 0
+        self.throttle = 0
+        self.steer = 0
+        self.brake = 0
+        self.clutch = 0
+        self.gear = 0
+        self.engineRPM = 0
+        self.drs = 0
+        self.revLightsPercent = 0
+        self.brakesTemperature = [0,0,0,0]
+        self.tiresSurfaceTemperature = [0,0,0,0]
+        self.tiresInnerTemperature = [0,0,0,0]
+        self.engineTemperature = 0
+        self.tirePressure = [0,0,0,0]
+        self.surfaceType = [0,0,0,0]
+    }
 }
