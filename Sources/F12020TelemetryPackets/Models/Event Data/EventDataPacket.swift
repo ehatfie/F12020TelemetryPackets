@@ -75,6 +75,5 @@ public struct EventDataPacket {
         
         self.vehicleIdx = vehicleIdx
         self.lapTime = lapTime
-        print("EDP")
     }
 }
